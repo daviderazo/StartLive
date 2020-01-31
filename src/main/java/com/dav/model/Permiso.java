@@ -11,10 +11,8 @@ import javax.validation.constraints.NotNull;
  *
  */
 public class Permiso extends ModelAuditoria{
-	@NotNull
 	private Long idPermiso;
 	
-	@Max(message="el erroro maximo es de 50", value = 50)
 	private String nombre;
 	
 	

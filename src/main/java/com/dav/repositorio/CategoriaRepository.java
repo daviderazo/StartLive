@@ -22,7 +22,7 @@ import com.dav.model.Categoria;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class CategoriaRepository implements CategoriaRep, BaseRepBusq<Categoria>  {
 
 	//para ka pruebas

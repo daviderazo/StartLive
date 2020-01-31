@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.dav.mapper.CatalogoTipoMapper;
 import com.dav.model.CatalogoTipo;
@@ -21,7 +22,7 @@ import com.dav.model.CatalogoTipo;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class CatalogoTipoRepository implements CatalogoTipoRep 
 {
 	//para ka pruebas

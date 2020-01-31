@@ -22,7 +22,7 @@ import com.dav.model.Postmetadata;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class PostmetadataRepository implements PostmetadataRep, BaseRepBusq<Postmetadata> {
 	//para ka pruebas
 	private Log logger= LogFactory.getLog(getClass()); 

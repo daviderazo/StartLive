@@ -22,7 +22,7 @@ import com.dav.model.Post;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class PostRepository implements PostRep, BaseRepBusq<Post> {
 
 	//para ka pruebas

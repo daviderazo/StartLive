@@ -22,7 +22,7 @@ import com.dav.model.Grupo;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class GrupoRepository implements GrupoRep, BaseRepBusq<Grupo> {
 
 	//para ka pruebas

@@ -22,7 +22,7 @@ import com.dav.model.Ingresosistema;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class IngresosistemaRepository implements IngresosistemaRep, BaseRepBusq<Ingresosistema> {
 
 	//para ka pruebas

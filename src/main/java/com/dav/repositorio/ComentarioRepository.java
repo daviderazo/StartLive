@@ -16,14 +16,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.dav.mapper.ComentarioMapper;
-import com.dav.model.Categoria;
 import com.dav.model.Comentario;
 
 /**
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class ComentarioRepository implements ComentarioRep, BaseRepBusq<Comentario> {
 
 	//para ka pruebas

@@ -27,7 +27,7 @@ import com.dav.repositorio.UsuarioRepository;
  * @author Dhartel
  *
  */
-@Configuration
+//@Configuration
 //@Primary define la principal
 public class TestDatabaseConfiguration {
 

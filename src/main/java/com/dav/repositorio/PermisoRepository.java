@@ -22,7 +22,7 @@ import com.dav.model.Permiso;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class PermisoRepository implements PermisoRep, BaseRepBusq<Permiso> {
 
 	//para ka pruebas
@@ -75,4 +75,17 @@ public class PermisoRepository implements PermisoRep, BaseRepBusq<Permiso> {
 		return jdbcTemplate.queryForObject("select * from permiso where IdPermiso =?", parametersArray, new PermisoMapper());
 	} 
 	
+	public void deleteAll() {
+		jdbcTemplate.execute("delete from permiso");
+	}
+	
+	public boolean deleteById(int id) {
+		try {
+			String sql = String.format("delete from permiso where IdPermiso = '%d' ", id);
+			jdbcTemplate.execute(sql);
+			return Boolean.TRUE;
+		}catch(Exception e) {
+			return Boolean.FALSE; 
+		}
+	}
 }

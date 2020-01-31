@@ -22,7 +22,7 @@ import com.dav.model.UsuarioMetadata;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class UsuarioMetadataRepository implements UsuarioMetadataRep, BaseRepBusq<UsuarioMetadata> {
 
 	//para ka pruebas

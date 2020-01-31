@@ -22,7 +22,7 @@ import com.dav.model.Contenido;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class ContenidoRepository implements ContenidoRep, BaseRepBusq<Contenido> {
 
 	//para ka pruebas

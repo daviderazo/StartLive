@@ -22,7 +22,7 @@ import com.dav.model.GrupoPermiso;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class GrupoPermisoRepository implements GrupoPermisoRep {
 	//para ka pruebas
 	private Log logger= LogFactory.getLog(getClass()); 

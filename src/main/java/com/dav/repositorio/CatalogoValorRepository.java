@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.dav.mapper.CatalogoValorMapper;
 import com.dav.model.CatalogoValor;
@@ -22,7 +23,7 @@ import com.dav.model.CatalogoValor;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class CatalogoValorRepository implements CatalogoValorRep {
 	//para ka pruebas
 	private Log logger= LogFactory.getLog(getClass()); 

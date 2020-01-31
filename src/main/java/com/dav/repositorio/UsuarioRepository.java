@@ -22,7 +22,7 @@ import com.dav.model.Usuario;
  * @author Dhartel
  *
  */
-//@Repository
+@Repository
 public class UsuarioRepository implements UsuarioRep, BaseRepBusq<Usuario> {
 
 	//para ka pruebas

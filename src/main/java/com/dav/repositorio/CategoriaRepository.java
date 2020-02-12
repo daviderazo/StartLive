@@ -104,6 +104,17 @@ public class CategoriaRepository implements CategoriaRep, BaseRepBusq<Categoria>
 	public Categoria findById(long id) {
 		Object [] parametersArray = new Object [] {id};
 		return jdbcTemplate.queryForObject("select * from categoria where IdCategoria =?", parametersArray, new CategoriaMapper());
+	}
+
+	@Override
+	public boolean deleteById(int id) {
+		try {
+		String sql = String.format("delete from Categoria where IdCategoria='id'", id);
+		jdbcTemplate.execute(sql);
+		return true;
+		} catch (Exception e) {
+			return false;
+		}
 	} 
 	
 }

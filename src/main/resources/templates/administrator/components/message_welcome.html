@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.ultraq.net.nz/thymeleaf/layout">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div th:switch="${#httpServletRequest.requestURI}" class="alert alert-primary" role="alert">
+				  <span th:case="'/admin/'">
+					Bienvenido al inicio  	
+				  </span>
+				  <span th:case="'/admin/publicar'">
+					Bienvenido a tus publicaciones  	
+				  </span>
+				  <span th:case="'/admin/categoria'">
+					Bienvenido a las categorias  	
+				  </span>
+				  <span th:case="'/admin/comentario'">
+					Bienvenido al comentario  	
+				  </span>
+				  <span th:case="'/admin/usuario'">
+					Bienvenido al gestion de usuarios  	
+				  </span>
+				  <span th:case="'/admin/permiso'">
+					Bienvenido al permiso  	
+				  </span>
+				  <span th:case="'/admin/grupo'">
+					Bienvenido al grupo  	
+				  </span>
+				  <span th:case="'/admin/catalogoTipo'">
+					Bienvenido al catalogoTipo 	
+				  </span>
+				  <span th:case="'/admin/catalogoValor'">
+					Bienvenido al catalogoValor  	
+				  </span>
+				
+				</div>		
+			</div>
+		</div>
+	</div>
+	
+	
+
+</html>

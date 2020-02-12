@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Start live</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-link" th:href="@{/admin/}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/')?'active':'' ">Inicio</a>
+	  <a class="nav-link" th:href="@{/admin/catalogoTipo}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/catalogoTipo')?'active':'' ">Catalogo tipo</a>
+	  <a class="nav-link" th:href="@{/admin/catalogoValor}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/catalogoValor')?'active':'' ">Catalogo valor</a>
+	  <a class="nav-link" th:href="@{/admin/permiso}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/permiso')?'active':'' ">permiso</a>
+		<a class="nav-link" th:href="@{/admin/grupo}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/grupo')?'active':'' ">grupo</a>
+		  	    
+      <a class="nav-link" th:href="@{/admin/categoria}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/categoria')?'active':'' ">Categoria</a>
+	<a class="nav-link" th:href="@{/admin/publicar}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/publicar')?'active':'' ">Publicar</a>	
+	<a class="nav-link" th:href="@{/admin/comentario}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/comentario')?'active':'' ">Comentario</a>	
+	
+	<a class="nav-link" th:href="@{/admin/usuario}"
+		    th:classappend="(${#httpServletRequest.requestURI} == '/admin/usuario')?'active':'' ">Gestion usuario</a>
+		    
+<!--       <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+    </div>
+  </div>
+</nav>
+
+	
+</body>
+</html>

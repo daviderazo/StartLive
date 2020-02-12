@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+<meta charset="ISO-8859-1">
+<title>Publicar</title>
+<div th:replace="/administrator/components/style"></div>
+
+</head>
+<body>
+	 
+	 <div th:replace="/administrator/components/nav.html"></div>
+	 <div th:replace="/administrator/components/message_welcome.html"></div>
+	 <div th:replace="/administrator/components/script.html"></div>
+	 
+	 <div class="container">
+			<div class="row">
+				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == null || #httpServletRequest.getParameter('view_name') == 'all'}">
+					
+
+					<table class="table">
+					  <thead class="thead-light">
+					    <tr>
+					      <th scope="col">#</th>
+					      <th scope="col">Nombre</th>
+					      <th scope="col">Descripcion</th>
+					      <th scope="col">Fecha</th>
+					      <th scope="col">Accion</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="catalogoT : ${catalogosTipo}">
+					      <th scope="row" th:text="${catalogoT.getCodigoCatalogoTipo()}"></th>
+					      <td th:text="${catalogoT.getNombreCatalogoTipo()}"></td>
+					      <td th:text="${catalogoT.getDescripcionCatalogo()}"></td>
+					      <td th:text="${catalogoT.getFecha()}"></td>
+					      <td style="display: flex; justify-items: center; aling-items: center;" >
+					      	<button type="button" class="btn btn-warning">
+					      		<a class="text-white" th:href="'/admin/catalogoTipo?view_name=update&id='+${catalogoT.getCodigoCatalogoTipo()}">Editar</a>
+					      	</button>
+					      	<form style= "m=0;" th:action="@{/admin/catalogoTipo}" th:method="delete">
+					      		<input type="hidden" name="id" th:value="${catalogoT.getCodigoCatalogoTipo()}">
+					      		<button class="text-white btn btn-danger" type=submit>Eliminar
+					      		</button>
+					      	</form>
+					      	
+					      </td>
+					    </tr>
+					    
+					  </tbody>
+					</table>
+					<div class="col-12" >
+						<button type="button" class="btn btn-primary mt-4 mb-4">
+							<a class="text-white" th:href="'/admin/catalogoTipo?view_name=new'">Agregar Catalogo Tipo</a>
+						</button>
+					</div>
+				</div>
+				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == 'new' || #httpServletRequest.getParameter('view_name') == 'update'}">
+					<form th:action="@{/admin/catalogoTipo}"  th:method="post" th:object="${catalogoTipo}" >
+					
+						
+						<div class="form-group">
+							<label for="inputCodigo">Codigo CAtalogo</label>
+							<input class="form-control" type="text" th:value="*{codigoCatalogoTipo}" id="inputCodigo"
+							th:field="*{codigoCatalogoTipo}"  name="codigoCatalogoTipo">
+						</div>	
+						
+						<div class="form-group">
+							<label for="inputName">Nombre</label>
+							<input class="form-control" type="text" th:value="*{nombreCatalogoTipo}" id="inputNombre" 
+							th:field="*{nombreCatalogoTipo}" name="nombreCatalogoTipo">
+						
+						</div>
+						
+						<div class="form-group">
+							<label for="inputDescripcion">Descripcion</label>
+							<input class="form-control" type="text" th:value="*{descripcionCatalogo}" id="inputDescripcion" 
+							th:field="*{descripcionCatalogo}" name="descripcionCatalogo">
+						
+						</div>
+						
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Guardar
+							</button>
+							<button type="reset" class="btn btn-primary">Borrar
+							</button>
+						</div>
+						
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	 
+</body>
+</html>

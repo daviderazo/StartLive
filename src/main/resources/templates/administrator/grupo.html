@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+<meta charset="ISO-8859-1">
+<title>Usuario</title>
+<div th:replace="/administrator/components/style"></div>
+
+</head>
+<body>
+	 	 
+	 <div th:replace="/administrator/components/nav.html"></div>
+	 <div th:replace="/administrator/components/message_welcome.html"></div>
+	 <div th:replace="/administrator/components/script.html"></div>
+	 
+	 <div class="container">
+			<div class="row">
+				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == null || #httpServletRequest.getParameter('view_name') == 'all'}">
+					
+
+					<table class="table">
+					  <thead class="thead-light">
+					    <tr>
+					      <th scope="col">#</th>
+					      <th scope="col">Nombre</th>
+					      <th scope="col">Fecha</th>
+					      <th scope="col">Accion</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="grupo : ${grupos}">
+					      <th scope="row" th:text="${grupo.getIdGrupo()}"></th>
+					      <td th:text="${grupo.getNombre()}"></td>
+					      <td th:text="${grupo.getFecha()}"></td>
+					      <td style="display: flex; justify-items: center; aling-items: center;" >
+					      	<button type="button" class="btn btn-warning">
+					      		<a class="text-white" th:href="'/admin/grupo?view_name=update&id='+${grupo.getIdGrupo()}">Editar</a>
+					      	</button>
+					      	<form style= "m=0;">
+					      		<input type="hidden" name="id" th:value="${grupo.getIdGrupo()}">
+					      		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#grupoPermisoModal">
+								  	<a class="text-white" th:href="'/admin/grupo?view_name=addPerm&id='+${grupo.getIdGrupo()}">
+								  	agregar permiso al grupo</a>
+								</button>
+					      	</form>
+					      	
+<!-- 					      	<form style= "m=0;" th:action="@{/admin/grupo}" th:method="delete"> -->
+<!-- 					      		<input type="hidden" name="id" th:value="${grupo.getIdGrupo()}"> -->
+<!-- 					      		<button class="text-white btn btn-danger" type=submit>Eliminar -->
+<!-- 					      		</button> -->
+<!-- 					      	</form> -->
+					      	
+					      </td>
+					    </tr>
+					    
+					  </tbody>
+					</table>
+					<div class="col-12" >
+						<button type="button" class="btn btn-primary mt-4 mb-4">
+							<a class="text-white" th:href="'/admin/grupo?view_name=new'">Agregar grupo</a>
+						</button>
+						
+						
+					</div>
+				</div>
+				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == 'new' || #httpServletRequest.getParameter('view_name') == 'update'}">
+					<form th:action="@{/admin/grupo}"  th:method="post" th:object="${grupo}" >
+					
+						<input type="hidden" th:field="*{idGrupo}">
+					
+						<div class="form-group">
+							<label for="inputName">Nombre</label>
+							<input class="form-control" type="text" th:value="*{nombre}" id="inputNombre" 
+							th:field="*{nombre}" name="Nombre">
+						
+						</div>
+						
+						
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Guardar
+							</button>
+							<button type="reset" class="btn btn-primary">Borrar
+							</button>
+						</div>
+						
+					</form>
+					
+				</div>
+			</div>
+			<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == 'addPerm'}">
+				<form th:action="@{/admin/grupo/addPermiso}"  th:object="${grupoPermiso}"  th:method="post">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-5 border rounded bg-secondary bg-gradient-secondary">
+								<label>Permisos Disponibles</label>
+					<!-- 					Parte lista de permisos sin asignar -->
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-md-6"> -->
+<!-- 											**mandando solo los ids  			 -->
+<!-- 										</div> -->
+<!-- 										<div class="col-md-6"> -->
+<!-- 											***mandando todo el objeto -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+									
+									<div th:each="prmso, stat : ${grupoPermiso.permisos}" class="row">
+<!-- 										<div class="col-md-6"> -->
+<!-- 											<input type="checkbox"  -->
+<!-- 												th:field="*{multiCheckboxSelectedValues}" -->
+<!-- 												th:value="${prmso.idPermiso}" /> -->
+<!-- 											<label  th:for="${#ids.prev('multiCheckboxSelectedValues')}" -->
+<!-- 												th:text="${prmso.nombre}"></label> -->
+										
+										
+<!-- 										</div> -->
+										<div class="col-md-12">
+											<input type="checkbox" 	 th:field="*{permisos[__${stat.index}__].seleccionado}" th:value="${prmso}" /> 
+						 						<input th:field="*{permisos[__${stat.index}__].nombre}" type="hidden"/>
+						 						<input th:field="*{permisos[__${stat.index}__].idPermiso}" type="hidden"/>
+						 						<input th:field="*{permisos[__${stat.index}__].estado}" type="hidden"/>
+						    					<span class="primary" th:text="${prmso.nombre}">Developer</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<!-- Acciones de poner y quitar permiso -->
+									
+										<input type="hidden"  name="idGrupo" th:value="${grupo.idGrupo}">
+										<input type="hidden"  name="grupoPermiso" th:value="${grupoPermiso}">
+										
+										<button class="btn btn-link" name="action" value="addPermiso" type="submit" title="Asignar Permisos " >
+										<span class="far fa-plus-square fa-3x"></span></button>
+									
+										<button class="btn btn-link" name="action" value="removePermiso"   type="submit" title="Retirar Permisos">
+										<span class="far fa-minus-square fa-3x"></span></button>
+									
+																
+								</div>
+								<div class="col-md-5 border rounded border-info bg-secondary">
+									 <!--Permisos asignados -->
+									<label>Permisos Asignados</label>
+									<div class="row">
+										<div class="col-md-12">
+		 									<div th:each="grper, stat : ${lstGrupPerm}"  class="row">
+		 									
+												<input type="checkbox" 	 th:field="*{lstGrupoPermiso[__${stat.index}__].permiso.seleccionado}" th:value="${lstGrupoPermiso}" 
+												th:if="${grper.estado == true}" th:text="${grper.permiso.nombre}"/>  
+						    					<input th:field="*{lstGrupoPermiso[__${stat.index}__].idPermiso}"  type="hidden"/>
+						    					<input th:field="*{lstGrupoPermiso[__${stat.index}__].idGrupo}" type="hidden"/>
+						    					<input th:field="*{lstGrupoPermiso[__${stat.index}__].estado}" type="hidden"/>
+						    					<input th:field="*{lstGrupoPermiso[__${stat.index}__].permiso.estado}" type="hidden"/>
+						    					<input th:field="*{lstGrupoPermiso[__${stat.index}__].permiso.nombre}" type="hidden"/>
+<!-- 						    					<span class="primary" th:text="${grper.permiso.nombre}" th:if="${grper.estado == true}">Developer</span> -->
+		 									</div>
+		 								</div>
+		 							</div>		 
+								</div>
+								</form>	
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>	
+			
+			</div>
+		</div>
+	 <!-- Modal -->
+<div class="modal fade" id="grupoPermisoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

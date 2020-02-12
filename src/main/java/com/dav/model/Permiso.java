@@ -15,6 +15,9 @@ public class Permiso extends ModelAuditoria{
 	
 	private String nombre;
 	
+	private Boolean seleccionado;
+	
+	Permiso[] permisoSelecionados;
 	
 	public Long getIdPermiso() {
 		return idPermiso;
@@ -27,6 +30,21 @@ public class Permiso extends ModelAuditoria{
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public Boolean getSeleccionado() {
+		if(seleccionado == null) {
+			seleccionado = Boolean.FALSE;
+		}
+		return seleccionado;
+	}
+	public void setSeleccionado(Boolean seleccionado) {
+		this.seleccionado = seleccionado;
+	}
+	public Permiso[] getPermisoSelecionados() {
+		return permisoSelecionados;
+	}
+	public void setPermisoSelecionados(Permiso[] permisoSelecionados) {
+		this.permisoSelecionados = permisoSelecionados;
 	}
 	
 	

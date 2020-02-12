@@ -10,5 +10,6 @@ import com.dav.model.Categoria;
  *
  */
 public interface CategoriaRep extends BaseRep<Categoria>{
-
+	boolean deleteById(int id);
+	
 }

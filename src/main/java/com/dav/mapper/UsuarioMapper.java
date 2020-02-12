@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.dav.common.TimeConvertTypes;
+import com.dav.model.Grupo;
 import com.dav.model.Usuario;
 
 /**
@@ -26,9 +27,15 @@ public class UsuarioMapper implements RowMapper<Usuario> {
 		usuario.setFontIco(rs.getString("FontIco"));
 		usuario.setIdGrupo(rs.getLong("IdGrupo"));
 		usuario.setIdUsuario(rs.getLong("IdUsuario"));
-		usuario.setNombre(rs.getString("Nombre"));
-		usuario.setFecha(TimeConvertTypes.getLocalDateTimeOfTimestamp(rs.getTimestamp("fecha")));
-		usuario.setEstado(rs.getBoolean("estado"));
+		usuario.setNombre(rs.getString("nombreUs"));
+		usuario.setFecha(TimeConvertTypes.getLocalDateTimeOfTimestamp(rs.getTimestamp("fechaUs")));
+		usuario.setEstado(rs.getBoolean("estadoUs"));
+		usuario.setGrupo(new Grupo());
+		usuario.getGrupo().setNombre(rs.getString("NombreGp"));
+		usuario.getGrupo().setIdGrupo(rs.getLong("IdGrupo"));
+		usuario.getGrupo().setEstado(rs.getBoolean("estadoGp"));
+		usuario.getGrupo().setFecha(TimeConvertTypes.getLocalDateTimeOfTimestamp(rs.getTimestamp("fechaGp")));
+		
 		
 		return usuario;
 	}

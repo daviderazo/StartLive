@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="ISO-8859-1">
+<title>Catalogo Valor</title>
+<div th:replace="/administrator/components/style"></div>
+
+</head>
+<body>
+	 
+	 <div th:replace="/administrator/components/nav.html"></div>
+	 <div th:replace="/administrator/components/message_welcome.html"></div>
+	 <div th:replace="/administrator/components/script.html"></div>
+	 
+	 <div class="container">
+			<div class="row">
+				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == null || #httpServletRequest.getParameter('view_name') == 'all'}">
+					
+
+					<table class="table">
+					  <thead class="thead-light">
+					    <tr>
+					      <th scope="col">codigo valor</th>
+					      <th scope="col">Nombre</th>
+					      <th scope="col">Descripcion</th>
+					      <th scope="col">valorCatalogo</th>
+					      <th scope="col">tipoDatoValor</th>
+					      <th scope="col">color</th>
+					      <th scope="col">fontIco</th>
+					      <th scope="col">Fecha</th>
+					      <th scope="col">Codigo tipo</th>
+					      <th scope="col">nombre tipo</th>
+					      <th scope="col">Accion</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="value : ${catalogosValues}">
+					      <th scope="row" th:text="${value.getCodigoValorCatalogo()}"></th>
+					      <td th:text="${value.getNombreCatalogoValor()}"></td>
+					      <td th:text="${value.getDescripcionCatalogo()}"></td>
+					      <td th:text="${value.getValorCatalogo()}"></td>
+					      <td th:text="${value.getTipoDatoValor()}"></td>
+					      <td th:text="${value.getColor()}"></td>
+					      <td th:text="${value.getFontIco()}"></td>
+<!-- 					      <td th:text="${#calendars.format(value.getFecha(), 'dd MMMM yyyy')}"></td> -->
+					      <td th:text="${value.getFecha()}"></td>
+					      <td th:text="${value.getCodigoCatalogoTipo()}"></td>
+					      <td th:text="${value.getCatalogoTipo().getNombreCatalogoTipo()}"></td>
+					      <td style="display: flex; justify-items: center; aling-items: center;" >
+					      	<button type="button" class="btn btn-warning">
+					      		<a class="text-white" th:href="'/admin/catalogoValor?view_name=update&id='+${value.getCodigoValorCatalogo()}">Editar</a>
+					      	</button>
+<!-- 					      	<form style= "m=0;" th:action="@{/admin/categoria}" th:method="delete"> -->
+<!-- 					      		<input type="hidden" name="id" th:value="${categoria.getIdCategoria()}"> -->
+<!-- 					      		<button class="text-white btn btn-danger" type=submit>Eliminar -->
+<!-- 					      		</button> -->
+<!-- 					      	</form> -->
+					      	
+					      </td>
+					    </tr>
+					    
+					  </tbody>
+					</table>
+					<div class="col-12" >
+						<button type="button" class="btn btn-primary mt-4 mb-4">
+							<a class="text-white" th:href="'/admin/catalogoValor?view_name=new'">Agregar Categoria</a>
+						</button>
+					</div>
+				</div>
+				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == 'new' || #httpServletRequest.getParameter('view_name') == 'update'}">
+					<form th:action="@{/admin/catalogoValor}"  th:method="post" th:object="${catalogoValue}" >
+						
+						<div class="form-group">
+							<label for="inputcodigoValorCatalogo">Codigo catalogo valor</label>
+							<input class="form-control" type="text" th:value="*{codigoValorCatalogo}" id="inputcodigoValorCatalogo" 
+							th:field="*{codigoValorCatalogo}" name="codigoValorCatalogo">
+						
+						</div>
+						
+						<div class="form-group">
+							<label for="codigoCatalogoTipo">Catalogo Tipo</label>
+<!-- 							<ul> -->
+<!-- 							  <li th:each="catalogoTipo : ${catsTipo}" th:text="${catalogoTipo}"></li> -->
+<!-- 							</ul> -->
+							<select th:field="*{codigoCatalogoTipo}" name="tipo" id="codigoCatalogoTipo"  class="form-control">
+								<option th:each="catalogoTipo :${catsTipo}"
+								th:value="${catalogoTipo.getCodigoCatalogoTipo()}"
+								th:text="${catalogoTipo.getNombreCatalogoTipo()}"
+								></option>
+							</select>
+						</div>
+					
+						<div class="form-group">
+							<label for="inputName">Nombre</label>
+							<input class="form-control" type="text" th:value="*{nombreCatalogoValor}" id="inputNombre" 
+							th:field="*{nombreCatalogoValor}" name="nombreCatalogoValor">
+						</div>
+						
+						<div class="form-group">
+							<label for="inputDescripcion">Descripcion</label>
+							<input class="form-control" type="text" th:value="*{descripcionCatalogo}" id="inputDescripcion" 
+							th:field="*{descripcionCatalogo}" name="descripcionCatalogo">
+						</div>
+						
+						<div class="form-group">
+							<label for="inputvalorCatalogo">valor</label>
+							<input class="form-control" type="text" th:value="*{valorCatalogo}" id="inputvalorCatalogo" 
+							th:field="*{valorCatalogo}" name="valorCatalogo">
+						</div>
+						
+						<div class="form-group">
+							<label for="inputtipoDatoValor">Tipo dato</label>
+							<input class="form-control" type="text" th:value="*{tipoDatoValor}" id="inputtipoDatoValor" 
+							th:field="*{tipoDatoValor}" name="tipoDatoValor">
+						</div>
+						
+						<div class="form-group">
+							<label for="inputcolor">Color</label>
+							<input class="form-control" type="text" th:value="*{color}" id="inputcolor" 
+							th:field="*{color}" name="color">
+						</div>
+						
+						<div class="form-group">
+							<label for="inputfontIco">Icono</label>
+							<input class="form-control" type="text" th:value="*{fontIco}" id="inputfontIco" 
+							th:field="*{fontIco}" name="fontIco">
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Guardar
+							</button>
+							<button type="reset" class="btn btn-primary">Borrar
+							</button>
+						</div>
+						
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	 
+</body>
+</html>

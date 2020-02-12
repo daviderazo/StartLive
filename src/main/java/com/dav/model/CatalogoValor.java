@@ -17,6 +17,8 @@ public class CatalogoValor extends ModelAuditoria {
 	private String color;
 	private String fontIco;
 	
+	private CatalogoTipo catalogoTipo;
+	
 	
 	public String getCodigoValorCatalogo() {
 		return codigoValorCatalogo;
@@ -65,6 +67,17 @@ public class CatalogoValor extends ModelAuditoria {
 	}
 	public void setFontIco(String fontIco) {
 		this.fontIco = fontIco;
+	}
+	
+	public CatalogoTipo getCatalogoTipo() {
+		if(catalogoTipo==null) {
+			this.catalogoTipo = new CatalogoTipo();
+		}
+		return catalogoTipo;
+	}
+	
+	public void setCatalogoTipo(CatalogoTipo catalogoTipo) {
+		this.catalogoTipo = catalogoTipo;
 	}
 	
 	

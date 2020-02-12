@@ -78,7 +78,9 @@ public class CatalogoValorRepository implements CatalogoValorRep {
 
 	@Override
 	public List<CatalogoValor> findAll(Pageable pageable) {
-		return jdbcTemplate.query("select * from catalogo_valor", new CatalogoValorMapper());
+		StringBuilder sentencia =new StringBuilder("select * from catalogo_valor cv ");
+		sentencia.append("inner join catalogo_tipo ct on cv.CodigoCatalogoTipo = ct.CodigoCatalogoTipo");
+		return jdbcTemplate.query(sentencia.toString(), new CatalogoValorMapper());
 	}
 
 	@Override

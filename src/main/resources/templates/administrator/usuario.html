@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+	<head>
 
 
-<meta charset="ISO-8859-1">
-<title>Usuario</title>
-<div th:replace="/administrator/components/style"></div>
+	<meta charset="ISO-8859-1">
+	<title>Usuario</title>
+	<div th:replace="/administrator/components/style"></div>
 
-</head>
+	</head>
 <body>
 	 	 
 	 <div th:replace="/administrator/components/nav.html"></div>
@@ -15,160 +15,190 @@
 	 <div th:replace="/administrator/components/script.html"></div>
 	 
 	 <div class="container">
-			<div class="row">
-				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == null || #httpServletRequest.getParameter('view_name') == 'all'}">
+		<div class="row">
+			<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == null || #httpServletRequest.getParameter('view_name') == 'all'}">
 					
 
-					<table class="table">
-					  <thead class="thead-light">
+				<table class="table">
+					<thead class="thead-light">
 					    <tr>
-					      <th scope="col">#</th>
-					      <th scope="col">Nombre</th>
-					      <th scope="col">Apellido</th>
-					      <th scope="col">Contrasena<th>
-					      <th scope="col">Correo</th>
-					       <th scope="col">Grupo</th>
-					      
-					      <th scope="col">Accion</th>
+							<th scope="col">#</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Contrasena<th>
+							<th scope="col">Correo</th>
+							<th scope="col">Grupo</th>
+							<th scope="col">Accion</th>
 					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr th:each="usuario : ${usuarios}">
-					      <th scope="row" th:text="${usuario.getIdUsuario()}"></th>
-					      <td th:text="${categoria.getNombre()}"></td>
-					      <td th:text="${categoria.getApellido()}"></td>
-					      <td th:text="${categoria.getContrasena()}"></td>
-					      <td th:text="${categoria.getCorreo()}"></td>
-					      <td th:text="${categoria.getGrupo()}"></td>
-					      
-					      
-					      <td style="display: flex; justify-items: center; aling-items: center;" >
-					      	<button type="button" class="btn btn-warning">
-					      		<a class="text-white" th:href="'/admin/usuario?view_name=update&id='+${usuario.getIdUsuario()}">Editar</a>
-					      	</button>
+					</thead>
+					</table>
+					<table class="table">
+					<tbody role="row" th:each="usuario : ${usuarios}">
+					    <tr >
+							<td th:text="${usuario.getIdUsuario()}"></td>
+							<td th:text="${usuario.getNombre()}"></td>
+							<td th:text="${usuario.getApellido()}"></td>
+							<td th:text="${usuario.getContrasena()}"></td>
+							<td th:text="${usuario.getCorreo()}"></td>
+							<td th:text="${usuario.getGrupo().getNombre()}"></td>
+					      	<td style="display: flex; justify-items: center; aling-items: center;" >
+								<button type="button" class="btn btn-warning">
+									<a class="text-white" th:href="'/admin/usuario?view_name=update&id='+${usuario.getIdUsuario()}">Editar</a>
+								</button>
 <!-- 					      	<form style= "m=0;" th:action="@{/admin/categoria}" th:method="delete"> -->
 <!-- 					      		<input type="hidden" name="id" th:value="${categoria.getIdCategoria()}"> -->
 <!-- 					      		<button class="text-white btn btn-danger" type=submit>Eliminar -->
 <!-- 					      		</button> -->
 <!-- 					      	</form> -->
 					      	
-					      </td>
+							</td>
 					    </tr>
 					    
-					  </tbody>
-					</table>
-					<div class="col-12" >
-						<button type="button" class="btn btn-primary mt-4 mb-4">
-							<a class="text-white" th:href="'/admin/usuario?view_name=new'">Agregar Usuario</a>
-						</button>
-					</div>
+					</tbody>
+				</table>
+				<div class="col-12" >
+					<button type="button" class="btn btn-primary mt-4 mb-4">
+						<a class="text-white" th:href="'/admin/usuario?view_name=new'">Agregar Usuario</a>
+					</button>
 				</div>
-				<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == 'new' || #httpServletRequest.getParameter('view_name') == 'update'}">
-					<form th:action="@{/admin/usuario}"  th:method="post" th:object="${usuario}" >
+			</div>
+			<div class="col-12" th:if="${#httpServletRequest.getParameter('view_name') == 'new' || #httpServletRequest.getParameter('view_name') == 'update'}">
+				<form th:action="@{/admin/usuario}"  th:method="post" th:object="${usuario}" >
 					
-						<input type="hidden" th:field="*{idUsuario}">
+					<input type="hidden" th:field="*{idUsuario}">
 					
-						<div class="form-group">
-							<label for="inputName">Nombre</label>
-							<input class="form-control" type="text"  th:value="*{nombre}" id="inputNombre" 
+					<div class="form-group">
+						<label for="inputName">Nombre</label>
+						<input class="form-control" type="text"  th:value="*{nombre}" id="inputNombre" 
 							th:field="*{nombre}" name="Nombre">
 						
-						</div>
+					</div>
 						
-						<div class="form-group">
-							<label for="inputApellido">Apellido</label>
-							<input class="form-control" type="text" th:value="*{apellido}" id="inputApellido" 
+					<div class="form-group">
+						<label for="inputApellido">Apellido</label>
+						<input class="form-control" type="text" th:value="*{apellido}" id="inputApellido" 
 							th:field="*{apellido}" name="apellido">
 						
-						</div>
+					</div>
 						
-						<div class="form-group">
-							<label for="inputContrasena">Contrasena</label>
-							<input class="form-control" type="text" th:value="*{contrasena}" id="inputContrasena" 
+					<div class="form-group">
+						<label for="inputContrasena">Contrasena</label>
+						<input class="form-control" type="text" th:value="*{contrasena}" id="inputContrasena" 
 							th:field="*{contrasena}" name="contrasena">
 						
-						</div>
+					</div>
 						
-						<div class="form-group">
-							<label for="inputCorreo">Correo</label>
-							<input class="form-control" type="text" th:value="*{correo}" id="inputCorreo" 
+					<div class="form-group">
+						<label for="inputCorreo">Correo</label>
+						<input class="form-control" type="text" th:value="*{correo}" id="inputCorreo" 
 							th:field="*{correo}" name="correo">
 						
-						</div>
+					</div>
 						
-						<div class="form-group">
-						<label for="inputImagen">imagen</label>
-							<button type="button"  data-toggle="modal" data-target="#usuarioIconoModal">agregar
-							</button>
-							<span  class="fa-3x"  th:classappend="*{fontIco}"></span>
+					<div class="form-group">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-3">
+											<div class="row">
+												<div class="col-md-12">
+													<label for="inputImagen">Seleccione imagen</label>
+												
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<button type="button"  data-toggle="modal" data-target="#usuarioIconoModal">agregar
+													</button>
+												
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3 text-center">
+											<div class="col-md-12 align-self-md-center h-100">
+												<span  class="fa-3x"  th:classappend="*{fontIco}"></span>
+										
+											</div>
+										</div>
+										<div class="col-md-6">
+											
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
+					</div>
 						
-						<div class="form-group">
-							<label for="inputCorreo">Grupo</label>
-							<select th:field="*{idGrupo}" name="idGrupo" id="idGrupo"  class="form-control">
-								<option th:each="grupo :${grupos}"
+					<div class="form-group">
+						<label for="inputCorreo">Grupo</label>
+						<select th:field="*{idGrupo}" name="idGrupo" id="idGrupo"  class="form-control">
+							<option th:each="grupo :${grupos}"
 								th:value="${grupo.getIdGrupo()}"
 								th:text="${grupo.getNombre()}"
-								></option>
-							</select>
+							></option>
+						</select>
 							
-						</div>
+					</div>
 						
-						
-						
-						<div class="form-group">
+					<div class="form-group">
 							<button type="submit" class="btn btn-primary">Guardar
 							</button>
 							<button type="reset" class="btn btn-primary">Borrar
 							</button>
-						</div>
-						
-						</form>
-				</div>
-				<!-- Modal -->
-				<div class="modal fade" id="usuarioIconoModal" tabindex="-1" role="dialog" aria-labelledby="ussuarioIconoModalLabel" aria-hidden="true">
-					 <div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title" id="ussuarioIconoModalLabel">Selecciona una imagen de seguriadad</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form th:action="@{/admin/usuario/font}"  th:method="post" th:object="${usuario}" >
-									<input type="hidden"  th:id="modalNombre"  name="modalNombre" th:field="*{nombre}">		
-									<input type="hidden"  th:id="modalApellido"  name="modalApellido" th:field="*{apellido}">
-									<input type="hidden"  th:id="modalContrasena" name="modalContrasena"  th:field="*{contrasena}">
-									<input type="hidden"  th:id="modalCorreo" name="modalCorreo"  th:field="*{correo}">
-									<input type="hidden" th:id="modalIdGrupo" name="modalIdGrupo"  th:field="*{idGrupo}">
-									<input type="hidden" id="modalIontIco"  name="font" th:field="*{fontIco}" >
-								<div class="card-columns">
-								
-									<div class="card radiusb25  text-center" th:each="icono, stat : ${icons}" >
-											
-											<button  class="width100 btn btn-link nopadding buttonsFont" th:id="'buttonFont'+'_'+${stat.index}" type="button" name="action" th:value="${icono}" >
-												<div th:id="'divFont'+'_'+${stat.index}" class ="noSelAwesome divsFont" >
-													<span  class="fa-5x" th:classappend="${icono}"></span> 
-												 </div>
-											</button>
-									</div>
-								</div>
-							</form>
-										        <span th:text="*{fontIco}"></span>
-										        
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-										        
-							</div>
-						</div>
 					</div>
-				</div>
+						
+				</form>
+			</div>
+				
+				
 				 
 
-			</div>
 		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="usuarioIconoModal" tabindex="-1" role="dialog" aria-labelledby="ussuarioIconoModalLabel" aria-hidden="true">
+		<form th:action="@{'/admin/usuario?view_name=newico'}"  th:object="${usuario}" th:method="get">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="ussuarioIconoModalLabel">Selecciona una imagen de seguriadad</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+									
+						<input type="hidden"  id="modalNombre"   th:field="*{nombre}" >		
+						<input type="hidden"  id="modalApellido"  name="modalApellido" th:field="*{apellido}" >
+						<input type="hidden"  id="modalContrasena" name="modalContrasena"  th:field="*{contrasena}" >
+						<input type="hidden"  id="modalCorreo" name="modalCorreo"  th:field="*{correo}" >
+						<input type="hidden" id="modalIdGrupo" name="modalIdGrupo"  th:field="*{idGrupo}" >
+						<input type="hidden" id="modalIontIco"  name="font" th:field="*{fontIco}" >
+										
+						<div class="card-columns">
+							<div class="card radiusb25  text-center" th:each="icono, stat : ${icons}" >
+								<button  class="width100 btn btn-link nopadding buttonsFont" th:id="'buttonFont'+'_'+${stat.index}" type="button" name="action" th:value="${icono}" >
+									<div th:id="'divFont'+'_'+${stat.index}" class ="noSelAwesome divsFont" >
+										<span  class="fa-5x" th:classappend="${icono}"></span> 
+									 </div>
+								</button>
+							</div>
+						</div>
+				
+													
+					</div>
+					<div class="modal-footer">
+					<input type="hidden"  name="view_name" th:value="${view_name}" >
+					<input type="hidden"  name="useUsuario" value="true" >
+					<button type="submit" class="btn btn-secondary" >Seleccionar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													
+					</div>
+				</div>
+			</div>
+		</form>	
+	</div>
 	 <script>
 	    $(document).ready(function () {
 	        $('#usuarioIconoModal').on('show.bs.modal', function () {
@@ -177,12 +207,6 @@
 	        	$('#modalContrasena').val($('#inputContrasena').val());
 	        	$('#modalCorreo').val($('#inputCorreo').val());
 	        	$('#modalIdGrupo').val($('#idGrupo').val());
-	        	
-	        	
-	        	
-	        	
-	        	
-	        	
 	        	
 	            //$('#modal').modal('show');
 	        });
@@ -203,22 +227,22 @@
 	        $('.buttonsFont').click(function(){
 	                var myValue = $(this).val();
 	                $('#modalIontIco').val(myValue); 
-	                
 	                var id = $(this).attr('id');
 	                var divId = id.split('_')[1];
-	                
+	                var divSel = 'divFont_'+divId;
 	                $('.divsFont').each(function() {
-	                	
-	                	
-// 	                	  $( this ).removeClass('selAwesome');
+	                	if($( this ).attr('id') != divSel){
+	                	  $( this ).removeClass('selAwesome');
+	                	} 
+	                	$( this ).addClass('noSelAwesome');
 	                });
 	                
-	                $('#divFont_'+divId).addClass('noSelAwesome');
-	                $('#divFont_'+divId).addClass('selAwesome');
+	                $('#'+divSel).removeClass('noSelAwesome');
+	                $('#'+divSel).addClass('selAwesome');
 	            });
 	          });
 	     
 	    
 	</script>
-</body>
+	</body>
 </html>

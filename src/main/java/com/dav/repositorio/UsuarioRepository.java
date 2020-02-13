@@ -33,7 +33,7 @@ public class UsuarioRepository implements UsuarioRep, BaseRepBusq<Usuario> {
 	
 	private final StringBuilder query = new StringBuilder("select u.IdUsuario, u.Nombre as nombreUs, u.Apellido, u.Contrasena, ")
 	.append("u.Correo, u.FontIco, u.FontIco, u.fecha as fechaUs, u.estado as estadoUs, g.estado as estadoGp, ")
-	.append("g.fecha as fechaGp, g.Nombre as NombreGp from usuario u ")
+	.append("u.IdGrupo, g.fecha as fechaGp, g.Nombre as NombreGp from usuario u ")
 	.append(" inner join grupo g on u.IdGrupo = u.IdGrupo ");
 	
 	

@@ -19,11 +19,14 @@ import org.springframework.stereotype.Repository;
 import com.dav.mapper.CatalogoValorMapper;
 import com.dav.model.CatalogoValor;
 
+import lombok.Setter;
+
 /**
  * @author Dhartel
  *
  */
 @Repository
+@Setter
 public class CatalogoValorRepository implements CatalogoValorRep {
 	//para ka pruebas
 	private Log logger= LogFactory.getLog(getClass()); 
@@ -89,18 +92,14 @@ public class CatalogoValorRepository implements CatalogoValorRep {
 		return jdbcTemplate.queryForObject("select * from catalogo_valor where CodigoValorCatalogo =?", parametersArray, new CatalogoValorMapper());
 	}
 	
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	} 
 	
-	public DataSource getDataSource() {
-		return dataSource;
-	}
 
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	@Override
+	public List<CatalogoValor> findByIdPadre(String id) {
+		Object [] parametersArray = new Object [] {id};
+		StringBuilder sentencia = new StringBuilder("select * from catalogo_valor cv ");
+		sentencia.append("inner join catalogo_tipo ct on cv.CodigoCatalogoTipo = ct.CodigoCatalogoTipo");
+		sentencia.append(" where cv.CodigoCatalogoTipo =?");
+		return jdbcTemplate.query( sentencia.toString(), parametersArray, new CatalogoValorMapper());
 	}
 }

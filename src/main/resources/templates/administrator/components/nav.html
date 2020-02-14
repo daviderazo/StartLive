@@ -36,6 +36,16 @@
 <!--       <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
     </div>
   </div>
+  
+<!--   cerrar session -->
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<button class="btn btn-link" type="submit" title="Cerrar Sesion">
+	             <img class="img40" src="static/img/leave.png" th:src="@{/img/leave.png}"/>
+			</button>
+        </form>
+	
+	</div>
 </nav>
 
 	

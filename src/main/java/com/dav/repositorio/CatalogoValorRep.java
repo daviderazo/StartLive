@@ -3,6 +3,8 @@
  */
 package com.dav.repositorio;
 
+import java.util.List;
+
 import com.dav.model.CatalogoValor;
 
 /**
@@ -11,4 +13,5 @@ import com.dav.model.CatalogoValor;
  */
 public interface CatalogoValorRep  extends BaseRep<CatalogoValor> {
 	CatalogoValor findById(String id);
+	List<CatalogoValor> findByIdPadre(String id);
 }

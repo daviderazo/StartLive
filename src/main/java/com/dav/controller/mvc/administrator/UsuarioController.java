@@ -3,6 +3,7 @@
  */
 package com.dav.controller.mvc.administrator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,7 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dav.common.EnumEncrytedValues;
+import com.dav.common.TimeConvertTypes;
+import com.dav.common.UtilVariables;
 import com.dav.model.Usuario;
+import com.dav.repositorio.CatalogoValorRepository;
 import com.dav.repositorio.GrupoRepository;
 import com.dav.repositorio.UsuarioRepository;
 
@@ -38,6 +44,7 @@ public class UsuarioController {
 		super();
 		setIconosFontAwesome();
 	}
+	private static final String  IDCATFECCAD= "US02";
 
 
 	@Autowired
@@ -45,6 +52,13 @@ public class UsuarioController {
 	
 	@Autowired
 	private GrupoRepository repositoryGp;
+	
+	@Autowired
+	private CatalogoValorRepository repositorioCV;
+	
+	@Autowired
+	private BCryptPasswordEncoder byCrytEncode;
+	
 	
 	private List<String> iconosFontAwesome;
 	
@@ -69,6 +83,7 @@ public class UsuarioController {
 			modelAndView.addObject("grupos", repositoryGp.findAll(pageable));
 			modelAndView.addObject("icons",iconosFontAwesome);
 			modelAndView.addObject("view_name","new");
+			modelAndView.addObject("catalogosValor",repositorioCV.findByIdPadre(IDCATFECCAD));
 			break;
 			
 		case "update":
@@ -81,6 +96,7 @@ public class UsuarioController {
 			modelAndView.addObject("grupos", repositoryGp.findAll(pageable));
 			modelAndView.addObject("icons",iconosFontAwesome);
 			modelAndView.addObject("view_name","update");
+			modelAndView.addObject("catalogosValor",repositorioCV.findByIdPadre(IDCATFECCAD));
 			break;
 		default:
 			modelAndView.addObject("usuarios", repository.findAll(pageable));
@@ -95,11 +111,23 @@ public class UsuarioController {
 	@PostMapping
 	//(path = "/newupdate", params ="action=newupdate")
 	public String newAndUpdate(@ModelAttribute Usuario usuario) {
+		LocalDateTime timeNow = LocalDateTime.now();
+		Long valor = (Long) UtilVariables.transformarVarible(usuario.getCatValor().getValorCatalogo(), 
+				usuario.getCatValor().getTipoDatoValor());
+		usuario.setFechaExpiracion(TimeConvertTypes.aumentarFecha(timeNow, valor));
+		
+		if(!EnumEncrytedValues.ENCRYPTED.getValor().equals(usuario.getIsEncryted())){
+			usuario.setContrasena(byCrytEncode.encode(usuario.getContrasena()));
+			usuario.setIsEncryted(EnumEncrytedValues.ENCRYPTED.getValor());
+		} else {
+			usuario.setContrasena(byCrytEncode.encode(usuario.getContrasena()));
+		}
 		
 		if(usuario.getFecha() == null) {
 			usuario.setEstado(Boolean.TRUE);
 			repository.save(usuario);
 		} else {
+			usuario.setFechaModificacion(timeNow);
 			repository.update(usuario);
 		}
 		

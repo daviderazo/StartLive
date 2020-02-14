@@ -36,12 +36,12 @@ private Log logger= LogFactory.getLog(getClass());
 	@Test
 	public void testInsert() {
 		CatalogoValor catVal = new CatalogoValor();
-		catVal.setCodigoCatalogoTipo("D01");
-		catVal.setCodigoValorCatalogo("A001");
-		catVal.setNombreCatalogoValor("Windows");
-		catVal.setValorCatalogo("Windows Home");
-		catVal.setTipoDatoValor("String");
-		catVal.setDescripcionCatalogo("Windows Home");
+		catVal.setCodigoCatalogoTipo("US02");
+		catVal.setCodigoValorCatalogo("SPT03");
+		catVal.setNombreCatalogoValor("Tiempo  secion  activa password usuario 3");
+		catVal.setValorCatalogo("0");
+		catVal.setTipoDatoValor("Long");
+		catVal.setDescripcionCatalogo("tiempo de sesion  password activa no caduca");
 		boolean result = catalogoValorRepository.save(catVal);
 		
 		Assert.isTrue(result, "Es el valor error ");

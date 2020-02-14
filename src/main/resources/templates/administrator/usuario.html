@@ -80,14 +80,34 @@
 							th:field="*{apellido}" name="apellido">
 						
 					</div>
-						
-					<div class="form-group">
-						<label for="inputContrasena">Contrasena</label>
-						<input class="form-control" type="text" th:value="*{contrasena}" id="inputContrasena" 
-							th:field="*{contrasena}" name="contrasena">
-						
+					<div class="container-fluid nopadding">
+						<div class="row ">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="inputContrasena">Contrasena</label> <input
+												class="form-control" type="password"
+												th:value="*{contrasena}" id="inputContrasena"
+												th:field="*{contrasena}" name="contrasena">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="inputCorreo">Periodo vigencia password </label> <select
+												th:field="*{valorTipoUsuarioSecurity}" name="idCatVal" id="idCatVal"
+												class="form-control">
+												<option th:each="catalogo :${catalogosValor}"
+													th:value="${catalogo.getCodigoValorCatalogo()}"
+													th:text="${catalogo.getNombreCatalogoValor()}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-						
+
 					<div class="form-group">
 						<label for="inputCorreo">Correo</label>
 						<input class="form-control" type="text" th:value="*{correo}" id="inputCorreo" 
@@ -138,7 +158,6 @@
 								th:text="${grupo.getNombre()}"
 							></option>
 						</select>
-							
 					</div>
 						
 					<div class="form-group">
@@ -174,8 +193,9 @@
 						<input type="hidden"  id="modalContrasena" name="modalContrasena"  th:field="*{contrasena}" >
 						<input type="hidden"  id="modalCorreo" name="modalCorreo"  th:field="*{correo}" >
 						<input type="hidden" id="modalIdGrupo" name="modalIdGrupo"  th:field="*{idGrupo}" >
+						<input type="hidden" id="modalIdCatVal" name="modalIdCatVal"  th:field="*{valorTipoUsuarioSecurity}" >	
 						<input type="hidden" id="modalIontIco"  name="font" th:field="*{fontIco}" >
-										
+									
 						<div class="card-columns">
 							<div class="card radiusb25  text-center" th:each="icono, stat : ${icons}" >
 								<button  class="width100 btn btn-link nopadding buttonsFont" th:id="'buttonFont'+'_'+${stat.index}" type="button" name="action" th:value="${icono}" >
@@ -207,6 +227,7 @@
 	        	$('#modalContrasena').val($('#inputContrasena').val());
 	        	$('#modalCorreo').val($('#inputCorreo').val());
 	        	$('#modalIdGrupo').val($('#idGrupo').val());
+	        	$('#modalIdCatVal').val($('idCatVal').val());
 	        	
 	            //$('#modal').modal('show');
 	        });

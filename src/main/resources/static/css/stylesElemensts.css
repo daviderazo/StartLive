@@ -51,3 +51,8 @@ input[type="checkbox"]:checked+label::before {
     padding: 0 !important;
     margin: -1px;
 }
+
+.img40{
+	width: 48px;
+    height: 41px;
+}

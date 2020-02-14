@@ -35,9 +35,9 @@ public class CatalogoTipoRepositoryTest implements MetodosPruebas {
 	@Test
 	public void testInsert() {
 		CatalogoTipo catatipo = new CatalogoTipo();
-		catatipo.setNombreCatalogoTipo("Android");
-		catatipo.setDescripcionCatalogo("Dispositivo Android");
-		catatipo.setCodigoCatalogoTipo("D01");
+		catatipo.setNombreCatalogoTipo("User time active");
+		catatipo.setDescripcionCatalogo("usuario activo sitema ");
+		catatipo.setCodigoCatalogoTipo("US01");
 		
 		boolean result = catalogoTipoRepository.save(catatipo);
 		

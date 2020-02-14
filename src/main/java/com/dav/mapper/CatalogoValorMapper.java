@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.dav.common.TimeConvertTypes;
+import com.dav.model.CatalogoTipo;
 import com.dav.model.CatalogoValor;
 
 /**
@@ -31,7 +32,8 @@ public class CatalogoValorMapper implements RowMapper<CatalogoValor> {
 		catalogoValor.setFecha(TimeConvertTypes.getLocalDateTimeOfTimestamp(rs.getTimestamp("fecha")));
 		catalogoValor.setEstado(rs.getBoolean("estado"));
 		//se pone un mapa con los valores de las variables
-//		catalogoValor.getCatalogoTipo().setCodigoCatalogoTipo(rs.getString("CodigoCatalogoTipo"));
+		catalogoValor.setCatalogoTipo(new CatalogoTipo());
+		catalogoValor.getCatalogoTipo().setCodigoCatalogoTipo(rs.getString("CodigoCatalogoTipo"));
 //		catalogoValor.getCatalogoTipo().setDescripcionCatalogo(rs.getString("DescripcionCatalogo"));
 		catalogoValor.getCatalogoTipo().setNombreCatalogoTipo(rs.getString("NombreCatalogoTipo"));
 		

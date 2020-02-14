@@ -1,5 +1,6 @@
 package com.dav.core.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -8,34 +9,49 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.Assert;
 
+import com.dav.common.EnumEncrytedValues;
+import com.dav.common.TimeConvertTypes;
+import com.dav.component.SecurityConfiguration;
 import com.dav.component.TestDatabaseConfiguration;
 import com.dav.model.Usuario;
 import com.dav.repositorio.UsuarioRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ContextConfiguration(classes = {TestDatabaseConfiguration.class})
+@ContextConfiguration(classes = {TestDatabaseConfiguration.class, SecurityConfiguration.class})
 public class UsuarioRepositoryTest implements MetodosPruebas {
 
 	private Log logger = LogFactory.getLog(getClass()); 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private BCryptPasswordEncoder byCrytEncode;
+	
 	@Test
 	@Override
 	public void testInsert() {
 		Usuario  obj = new Usuario();
 		obj.setApellido("Erazo");
-		obj.setContrasena("1234");
+		obj.setContrasena(byCrytEncode.encode("1234del@ABC.com"));
+		obj.setIsEncryted(EnumEncrytedValues.ENCRYPTED.getValor());
 		obj.setCorreo("ali@abc.com");
 		obj.setIdGrupo(1L);
-		obj.setNombre("David");
+		obj.setNombre("Christian");
+		obj.setEstado(Boolean.TRUE);
+		obj.setValorTipoUsuarioSecurity("SPT02");
+		obj.setCodigoTipoUsuarioSecurity("US02");
+		LocalDateTime timeNow = LocalDateTime.now();
+		obj.setFechaExpiracion(TimeConvertTypes.aumentarFecha(timeNow, 2592000L));
 		
+		logger.info("tamano: "+ obj.getContrasena().length());
 		boolean result =  usuarioRepository.save(obj);
 		Assert.isTrue(result, "Es el valor error ");
+		
 		logger.info("aca");
 	}
 	@Test
@@ -43,13 +59,14 @@ public class UsuarioRepositoryTest implements MetodosPruebas {
 	public void testModificar() {
 		Usuario  obj = new Usuario();
 		obj.setApellido("Erazo Pazmino");
-		obj.setContrasena("1234");
+		obj.setContrasena(byCrytEncode.encode("1234"));
 		obj.setCorreo("ali@abc.com");
 		obj.setIdGrupo(1L);
-		obj.setNombre("David Ricardo");
+		obj.setNombre("Christian");
 		obj.setIdUsuario(1L);
 		boolean result =  usuarioRepository.update(obj);
 		Assert.isTrue(result, "Es el valor error ");
+		
 		logger.info("aca");
 
 	}

@@ -11,4 +11,5 @@ import com.dav.model.Usuario;
  */
 public interface UsuarioRep  extends BaseRep<Usuario>{
 
+	Usuario findByNombre(String nombre);
 }
